@@ -58,6 +58,7 @@ describe('Payoneer Module', function() {
         });
       });
     });
+
     describe('Status Functions', function() {
       it('GetAPIStatus Function', function(done) {
         nock('https://api.sandbox.payoneer.com:443')
@@ -97,6 +98,19 @@ describe('Payoneer Module', function() {
         payoneer.requestPayment(options, function(error, data) {
           expect(error).to.not.exist;
           expect(data).to.have.property('Status', '000');
+          done();
+        });
+      });
+
+      it('GetUnclaimedPayments Function', function(done) {
+        nock('https://api.sandbox.payoneer.com:443')
+          .post('/Payouts/HttpApi/API.aspx')
+          .query(true)
+          .reply(200, responses.payments.unclaimed);
+
+        payoneer.getUnclaimedPayments(function(error, data) {
+          expect(error).to.not.exist;
+          expect(data).to.have.property('Payment').and.to.be.an('array');
           done();
         });
       });
