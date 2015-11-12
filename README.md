@@ -31,7 +31,7 @@ payoneer.getVersion(function(error, data) {
 
 ## History
 
-Payoneer's SDK is **AWFUL** so wrapper was right and necessary.
+Payoneer's SDK is **AWFUL** so a wrapper was right and necessary.
 
 ## Credits
 
