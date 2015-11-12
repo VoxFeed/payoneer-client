@@ -1,0 +1,26 @@
+{
+  "name": "payoneer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "request": "^2.65.0",
+    "xml2js": "^0.4.15"
+  },
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "mocha": "^2.3.3",
+    "nock": "^2.17.0",
+    "supertest": "^1.1.0"
+  },
+  "scripts": {
+    "test": "mocha -u bdd -R nyan --recursive test/"
+  },
+  "author": "Huicho",
+  "license": "MIT"
+}

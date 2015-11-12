@@ -1,0 +1,7 @@
+{
+  "echo": "<?xml version='1.0' encoding='ISO-8859-1' ?><PayoneerResponse><Status>000</Status><Description>Echo Ok - All systems are up.</Description></PayoneerResponse>",
+  "getVersion": "<?xml version='1.0' encoding='ISO-8859-1' ?><PayoneerResponse><Version>4.0.0.0</Version></PayoneerResponse>", 
+  "payments": {
+    "exists": "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?><PerformPayoutPayment><Description>Success!</Description><PaymentID></PaymentID><Status>000</Status><PayoneerID>458501</PayoneerID></PerformPayoutPayment>"
+  }
+}
