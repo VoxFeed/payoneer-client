@@ -105,11 +105,29 @@ describe('Payoneer Module', function() {
         nock('https://api.sandbox.payoneer.com:443')
           .post('/Payouts/HttpApi/API.aspx')
           .query(true)
-          .reply(200, responses.payments.exists);
+          .reply(200, responses.payments.request);
 
         payoneer.requestPayment(options, function(error, data) {
           expect(error).to.not.exist;
-          expect(data).to.have.property('Status', '000');
+          expect(data).to.have.property('PaymentID');
+          expect(data).to.have.property('PayoneerID');
+
+          done();
+        });
+      });
+
+      it('GetPaymentStatus Function', function(done) {
+        nock('https://api.sandbox.payoneer.com:443')
+          .post('/Payouts/HttpApi/API.aspx')
+          .query(true)
+          .reply(200, responses.payments.status);
+
+        payoneer.getPaymentStatus('42', function(error, data) {
+          expect(error).to.not.exist;
+          expect(data).to.have.property('PaymentId');
+          expect(data).to.have.property('Amount');
+          expect(data).to.have.property('Curr');
+
           done();
         });
       });
