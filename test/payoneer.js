@@ -159,6 +159,22 @@ describe('Payoneer Module', function() {
           done();
         });
       });
+
+      it('updatePayeeID Function', function() {
+        var oldPayeeID = '42';
+        var newPayeeID = '666';
+
+        nock('https://api.sandbox.payoneer.com:443')
+          .post('/Payouts/HttpApi/API.aspx')
+          .query(true)
+          .reply(200, responses.payees.updatePayeeID);
+
+        payoneer.updatePayeeID(oldPayeeID, newPayeeID, function(error, data) {
+          expect(error).to.not.exist;
+          expect(data).to.have.property('OldPayee', oldPayeeID);
+          expect(data).to.have.property('newPayee', newPayeeID);
+        });
+      });
     });
   });
 });
