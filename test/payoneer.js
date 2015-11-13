@@ -114,6 +114,22 @@ describe('Payoneer Module', function() {
           done();
         });
       });
+
+      it('CancelPayment Function', function(done) {
+        nock('https://api.sandbox.payoneer.com:443')
+          .post('/Payouts/HttpApi/API.aspx')
+          .query(true)
+          .reply(200, responses.payments.cancel);
+
+        payoneer.cancelPayment('42', function(error, data) {
+          if (error) done(error);
+          expect(data).to.have.property('PaymentID');
+          expect(data).to.have.property('Curr');
+          expect(data).to.have.property('Amount');
+
+          done();
+        });
+      });
     });
 
     describe('Payees Functions', function() {
