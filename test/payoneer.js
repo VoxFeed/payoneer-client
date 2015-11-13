@@ -178,6 +178,34 @@ describe('Payoneer Module', function() {
         });
       });
 
+      it('GetPayeePayments Function', function(done) {
+        nock('https://api.sandbox.payoneer.com:443')
+          .post('/Payouts/HttpApi/API.aspx')
+          .query(true)
+          .reply(200, responses.payees.getPayments);
+
+        payoneer.getPayeePayments('1', function(error, data) {
+          expect(error).to.not.exist;
+          expect(data).to.have.any.keys('Prepaid', 'ACH', 'iACH', 'PaperCheck', 'PayoneerAccount');
+
+          done();
+        });
+      });
+
+      it('GetPayeesReport Function', function(done) {
+        nock('https://api.sandbox.payoneer.com:443')
+          .post('/Payouts/HttpApi/API.aspx')
+          .query(true)
+          .reply(200, responses.payees.report);
+
+        payoneer.getPayeesReport(function(error, data) {
+          expect(error).to.not.exist;
+          expect(data).to.have.any.keys('Prepaid', 'ACH', 'iACH', 'PaperCheck', 'PayoneerAccount');
+
+          done();
+        });
+      });
+
       it('updatePayeeID Function', function() {
         var oldPayeeID = '42';
         var newPayeeID = '666';
@@ -185,7 +213,7 @@ describe('Payoneer Module', function() {
         nock('https://api.sandbox.payoneer.com:443')
           .post('/Payouts/HttpApi/API.aspx')
           .query(true)
-          .reply(200, responses.payees.updatePayeeID);
+          .reply(200, responses.payees.report);
 
         payoneer.updatePayeeID(oldPayeeID, newPayeeID, function(error, data) {
           expect(error).to.not.exist;
