@@ -115,5 +115,22 @@ describe('Payoneer Module', function() {
         });
       });
     });
+
+    describe('Payees Functions', function() {
+      it('GetPayee Function', function(done) {
+        nock('https://api.sandbox.payoneer.com:443')
+          .post('/Payouts/HttpApi/API.aspx')
+          .query(true)
+          .reply(200, responses.payees.getPayee);
+
+        payoneer.getPayee('1', function(error, data) {
+          if (error) done(error);
+          expect(data).to.have.deep.property('Payee[0].PayeeStatus');
+          expect(data).to.have.deep.property('Payee[0].Cards');
+
+          done();
+        });
+      });
+    });
   });
 });
