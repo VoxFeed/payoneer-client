@@ -44,39 +44,51 @@ describe('Payoneer Module', function() {
       payoneer = new Payoneer(config);
     });
 
-    describe('AuthRedirectURL Function', function() {
-      it('Returns an URL', function(done) {
-        nock('https://api.sandbox.payoneer.com:443')
-          .post('/Payouts/HttpApi/API.aspx')
-          .query(true)
-          .reply(200, responses.getToken);
+    it('GetBalance Function', function(done) {
+      nock('https://api.sandbox.payoneer.com:443')
+        .post('/Payouts/HttpApi/API.aspx')
+        .query(true)
+        .reply(200, responses.balance);
 
-        payoneer.getAuthRedirectURL('42', function(error, data) {
-          expect(error).to.not.exist;
-          expect(data).to.be.a('string');
-          done();
-        });
+      payoneer.getBalance(function(error, data) {
+        expect(error).to.not.exist;
+        expect(data).to.have.property('Curr');
+        expect(data).to.have.property('FeesDue');
+        expect(data).to.have.property('AccountBalance');
+
+        done();
       });
     });
 
-    describe('Status Functions', function() {
-      it('GetAPIStatus Function', function(done) {
-        nock('https://api.sandbox.payoneer.com:443')
-          .post('/Payouts/HttpApi/API.aspx')
-          .query(true)
-          .reply(200, responses.getVersion);
+    it('GetAuthRedirectURL Function', function(done) {
+      nock('https://api.sandbox.payoneer.com:443')
+        .post('/Payouts/HttpApi/API.aspx')
+        .query(true)
+        .reply(200, responses.getToken);
 
-        nock('https://api.sandbox.payoneer.com:443')
-          .post('/Payouts/HttpApi/API.aspx')
-          .query(true)
-          .reply(200, responses.echo);
+      payoneer.getAuthRedirectURL('42', function(error, data) {
+        expect(error).to.not.exist;
+        expect(data).to.be.a('string');
+        done();
+      });
+    });
 
-        payoneer.getAPIStatus(function(error, data) {
-          expect(error).to.not.exist;
-          expect(data).to.have.property('Version');
-          expect(data).to.have.property('Description').and.contains('Ok');
-          done();
-        });
+    it('GetAPIStatus Function', function(done) {
+      nock('https://api.sandbox.payoneer.com:443')
+        .post('/Payouts/HttpApi/API.aspx')
+        .query(true)
+        .reply(200, responses.getVersion);
+
+      nock('https://api.sandbox.payoneer.com:443')
+        .post('/Payouts/HttpApi/API.aspx')
+        .query(true)
+        .reply(200, responses.echo);
+
+      payoneer.getAPIStatus(function(error, data) {
+        expect(error).to.not.exist;
+        expect(data).to.have.property('Version');
+        expect(data).to.have.property('Description').and.contains('Ok');
+        done();
       });
     });
 
@@ -122,7 +134,7 @@ describe('Payoneer Module', function() {
           .reply(200, responses.payments.cancel);
 
         payoneer.cancelPayment('42', function(error, data) {
-          if (error) done(error);
+          expect(error).to.not.exist;
           expect(data).to.have.property('PaymentID');
           expect(data).to.have.property('Curr');
           expect(data).to.have.property('Amount');
@@ -140,7 +152,7 @@ describe('Payoneer Module', function() {
           .reply(200, responses.payees.getPayee);
 
         payoneer.getPayee('1', function(error, data) {
-          if (error) done(error);
+          expect(error).to.not.exist;
           expect(data).to.have.deep.property('Payee[0].PayeeStatus');
           expect(data).to.have.deep.property('Payee[0].Cards');
 
