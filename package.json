@@ -19,7 +19,7 @@
     "supertest": "^1.1.0"
   },
   "scripts": {
-    "test": "mocha -u bdd -R nyan --recursive test/"
+    "test": "mocha -u bdd --recursive test/"
   },
   "author": "Huicho",
   "license": "MIT"

@@ -2,7 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 
 var Payoneer = require('../lib/payoneer');
-var ipcn = require('../lib/ipcn');
+var parseIPCN = require('../lib/ipcn');
 var config = require('./config.json');
 
 var payoneer = new Payoneer(config);
@@ -11,13 +11,10 @@ var server;
 var id = '123';
 
 var notificationHandler = function(request, response) {
-  var query = request.query;
-  var type = ipcn.find(function(element) {
-    return element in query;
-  });
+  var type = parseIPCN(request.query);
 
   if (!type) response.send(500, 'Not valid type');
-  response.send('yolo');
+  response.send(200, { type: type });
 };
 
 app.use(express.static('public'));
