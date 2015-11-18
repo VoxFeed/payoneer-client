@@ -52,9 +52,9 @@ describe('Payoneer Module', function() {
 
       payoneer.getBalance(function(error, data) {
         expect(error).to.not.exist;
-        expect(data).to.have.property('Curr');
-        expect(data).to.have.property('FeesDue');
-        expect(data).to.have.property('AccountBalance');
+        expect(data).to.have.property('curr');
+        expect(data).to.have.property('feesDue');
+        expect(data).to.have.property('accountBalance');
 
         done();
       });
@@ -86,8 +86,8 @@ describe('Payoneer Module', function() {
 
       payoneer.getAPIStatus(function(error, data) {
         expect(error).to.not.exist;
-        expect(data).to.have.property('Version');
-        expect(data).to.have.property('Description').and.contains('Ok');
+        expect(data).to.have.property('version');
+        expect(data).to.have.property('description').and.contains('Ok');
         done();
       });
     });
@@ -109,8 +109,8 @@ describe('Payoneer Module', function() {
 
         payoneer.requestPayment(options, function(error, data) {
           expect(error).to.not.exist;
-          expect(data).to.have.property('PaymentID');
-          expect(data).to.have.property('PayoneerID');
+          expect(data).to.have.property('paymentId');
+          expect(data).to.have.property('payoneerId');
 
           done();
         });
@@ -124,9 +124,9 @@ describe('Payoneer Module', function() {
 
         payoneer.getPaymentStatus('42', function(error, data) {
           expect(error).to.not.exist;
-          expect(data).to.have.property('PaymentId');
-          expect(data).to.have.property('Amount');
-          expect(data).to.have.property('Curr');
+          expect(data).to.have.property('paymentId');
+          expect(data).to.have.property('amount');
+          expect(data).to.have.property('curr');
 
           done();
         });
@@ -140,7 +140,7 @@ describe('Payoneer Module', function() {
 
         payoneer.getUnclaimedPayments(function(error, data) {
           expect(error).to.not.exist;
-          expect(data).to.have.property('Payment').and.to.be.an('array');
+          expect(data).to.have.property('payment').and.to.be.an('array');
           done();
         });
       });
@@ -153,9 +153,9 @@ describe('Payoneer Module', function() {
 
         payoneer.cancelPayment('42', function(error, data) {
           expect(error).to.not.exist;
-          expect(data).to.have.property('PaymentID');
-          expect(data).to.have.property('Curr');
-          expect(data).to.have.property('Amount');
+          expect(data).to.have.property('paymentId');
+          expect(data).to.have.property('curr');
+          expect(data).to.have.property('amount');
 
           done();
         });
@@ -171,8 +171,8 @@ describe('Payoneer Module', function() {
 
         payoneer.getPayee('1', function(error, data) {
           expect(error).to.not.exist;
-          expect(data).to.have.deep.property('Payee[0].PayeeStatus');
-          expect(data).to.have.deep.property('Payee[0].Cards');
+          expect(data).to.have.deep.property('payee.payeeStatus');
+          expect(data).to.have.deep.property('payee.cards');
 
           done();
         });
@@ -186,7 +186,7 @@ describe('Payoneer Module', function() {
 
         payoneer.getPayeePayments('1', function(error, data) {
           expect(error).to.not.exist;
-          expect(data).to.have.any.keys('Prepaid', 'ACH', 'iACH', 'PaperCheck', 'PayoneerAccount');
+          expect(data).to.have.any.keys('prepaid', 'Ach', 'iAch', 'paperCheck', 'payoneerAccount');
 
           done();
         });
@@ -200,7 +200,7 @@ describe('Payoneer Module', function() {
 
         payoneer.getPayeesReport(function(error, data) {
           expect(error).to.not.exist;
-          expect(data).to.have.any.keys('Prepaid', 'ACH', 'iACH', 'PaperCheck', 'PayoneerAccount');
+          expect(data).to.have.any.keys('prepaid', 'Ach', 'iAch', 'paperCheck', 'payoneerAccount');
 
           done();
         });
@@ -213,11 +213,11 @@ describe('Payoneer Module', function() {
         nock('https://api.sandbox.payoneer.com:443')
           .post('/Payouts/HttpApi/API.aspx')
           .query(true)
-          .reply(200, responses.payees.report);
+          .reply(200, responses.payees.updatePayeeID);
 
         payoneer.updatePayeeID(oldPayeeID, newPayeeID, function(error, data) {
           expect(error).to.not.exist;
-          expect(data).to.have.property('OldPayee', oldPayeeID);
+          expect(data).to.have.property('oldPayee', oldPayeeID);
           expect(data).to.have.property('newPayee', newPayeeID);
         });
       });
