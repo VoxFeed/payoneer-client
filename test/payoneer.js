@@ -140,7 +140,7 @@ describe('Payoneer Module', function() {
 
         payoneer.getUnclaimedPayments(function(error, data) {
           expect(error).to.not.exist;
-          expect(data).to.have.property('payment').and.to.be.an('array');
+          expect(data).to.have.property('payment');
           done();
         });
       });
