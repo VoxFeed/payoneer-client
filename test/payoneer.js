@@ -187,6 +187,8 @@ describe('Payoneer Module', function() {
         payoneer.getPayeePayments('1', function(error, data) {
           expect(error).to.not.exist;
           expect(data).to.have.any.keys('prepaid', 'Ach', 'iAch', 'paperCheck', 'payoneerAccount');
+          expect(data).to.have.property('prepaid').that.is.an('array');
+          expect(data).to.have.deep.property('prepaid.0.payments').that.is.an('array');
 
           done();
         });
@@ -201,6 +203,8 @@ describe('Payoneer Module', function() {
         payoneer.getPayeesReport(function(error, data) {
           expect(error).to.not.exist;
           expect(data).to.have.any.keys('prepaid', 'Ach', 'iAch', 'paperCheck', 'payoneerAccount');
+          expect(data).to.have.property('prepaid').that.is.an('array');
+          expect(data).to.have.deep.property('prepaid.0.payments').that.is.an('array');
 
           done();
         });
