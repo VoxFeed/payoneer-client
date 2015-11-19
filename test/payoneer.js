@@ -8,7 +8,8 @@ var responses = require('./fixtures/responses.json');
 
 var payeeId = 1;
 var paymentId = 1;
-
+var SANDBOX_URI = 'https://api.sandbox.payoneer.com';
+var API_PATH = '/Payouts/HttpApi/API.aspx';
 describe('Payoneer Module', function() {
   describe('Configuration', function() {
     it('throws when no config is set', function() {
@@ -47,8 +48,8 @@ describe('Payoneer Module', function() {
     });
 
     it('GetBalance Function', function(done) {
-      nock('https://api.sandbox.payoneer.com:443')
-        .post('/Payouts/HttpApi/API.aspx')
+      nock(SANDBOX_URI)
+        .post(API_PATH)
         .query(true)
         .reply(200, responses.balance);
 
@@ -63,8 +64,8 @@ describe('Payoneer Module', function() {
     });
 
     it('GetAuthRedirectURL Function', function(done) {
-      nock('https://api.sandbox.payoneer.com:443')
-        .post('/Payouts/HttpApi/API.aspx')
+      nock(SANDBOX_URI)
+        .post(API_PATH)
         .query(true)
         .reply(200, responses.getToken);
 
@@ -76,13 +77,13 @@ describe('Payoneer Module', function() {
     });
 
     it('GetAPIStatus Function', function(done) {
-      nock('https://api.sandbox.payoneer.com:443')
-        .post('/Payouts/HttpApi/API.aspx')
+      nock(SANDBOX_URI)
+        .post(API_PATH)
         .query(true)
         .reply(200, responses.getVersion);
 
-      nock('https://api.sandbox.payoneer.com:443')
-        .post('/Payouts/HttpApi/API.aspx')
+      nock(SANDBOX_URI)
+        .post(API_PATH)
         .query(true)
         .reply(200, responses.echo);
 
@@ -105,8 +106,8 @@ describe('Payoneer Module', function() {
           date: (new Date()).toISOString()
         };
 
-        nock('https://api.sandbox.payoneer.com:443')
-          .post('/Payouts/HttpApi/API.aspx')
+        nock(SANDBOX_URI)
+          .post(API_PATH)
           .query(true)
           .reply(200, responses.payments.request);
 
@@ -120,8 +121,8 @@ describe('Payoneer Module', function() {
       });
 
       it('GetPaymentStatus Function', function(done) {
-        nock('https://api.sandbox.payoneer.com:443')
-          .post('/Payouts/HttpApi/API.aspx')
+        nock(SANDBOX_URI)
+          .post(API_PATH)
           .query(true)
           .reply(200, responses.payments.status);
 
@@ -136,8 +137,8 @@ describe('Payoneer Module', function() {
       });
 
       it('GetUnclaimedPayments Function', function(done) {
-        nock('https://api.sandbox.payoneer.com:443')
-          .post('/Payouts/HttpApi/API.aspx')
+        nock(SANDBOX_URI)
+          .post(API_PATH)
           .query(true)
           .reply(200, responses.payments.unclaimed);
 
@@ -149,8 +150,8 @@ describe('Payoneer Module', function() {
       });
 
       it('CancelPayment Function', function(done) {
-        nock('https://api.sandbox.payoneer.com:443')
-          .post('/Payouts/HttpApi/API.aspx')
+        nock(SANDBOX_URI)
+          .post(API_PATH)
           .query(true)
           .reply(200, responses.payments.cancel);
 
@@ -167,8 +168,8 @@ describe('Payoneer Module', function() {
 
     describe('Payees Functions', function() {
       it('GetPayee Function', function(done) {
-        nock('https://api.sandbox.payoneer.com:443')
-          .post('/Payouts/HttpApi/API.aspx')
+        nock(SANDBOX_URI)
+          .post(API_PATH)
           .query(true)
           .reply(200, responses.payees.getPayee);
 
@@ -182,8 +183,8 @@ describe('Payoneer Module', function() {
       });
 
       it('GetPayeePayments Function', function(done) {
-        nock('https://api.sandbox.payoneer.com:443')
-          .post('/Payouts/HttpApi/API.aspx')
+        nock(SANDBOX_URI)
+          .post(API_PATH)
           .query(true)
           .reply(200, responses.payees.getPayments);
 
@@ -198,8 +199,8 @@ describe('Payoneer Module', function() {
       });
 
       it('GetPayeesReport Function', function(done) {
-        nock('https://api.sandbox.payoneer.com:443')
-          .post('/Payouts/HttpApi/API.aspx')
+        nock(SANDBOX_URI)
+          .post(API_PATH)
           .query(true)
           .reply(200, responses.payees.report);
 
@@ -217,8 +218,8 @@ describe('Payoneer Module', function() {
         var oldPayeeId = payeeId;
         var newPayeeId = '666';
 
-        nock('https://api.sandbox.payoneer.com:443')
-          .post('/Payouts/HttpApi/API.aspx')
+        nock(SANDBOX_URI)
+          .post(API_PATH)
           .query(true)
           .reply(200, responses.payees.updatePayeeId);
 

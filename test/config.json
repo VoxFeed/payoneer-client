@@ -1,5 +1,5 @@
 {
-  "uri": "https://api.sandbox.payoneer.com/Payouts/HttpApi/API.aspx",
+  "sandbox": true,
   "username": "USERNAME",
   "password": "PASSWORD",
   "partnerId": "PARTNERID"
