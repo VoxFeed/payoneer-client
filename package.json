@@ -1,7 +1,7 @@
 {
   "name": "payoneer-client",
   "version": "0.0.1",
-  "description": "A Payoneer Client that actually works. Default SDK gave cancer",
+  "description": "A Payoneer Client that actually works. Default SDK gave me cancer.",
   "keyword": [
     "payoneer",
     "payments",
@@ -16,13 +16,12 @@
     "url": "https://github.com/VoxFeed/payoneer-client"
   },
   "dependencies": {
-    "body-parser": "^1.14.1",
-    "express": "^4.13.3",
     "lodash": "^3.10.1",
     "request": "^2.65.0",
     "xml2js": "^0.4.15"
   },
   "devDependencies": {
+    "express": "^4.13.3",
     "chai": "^3.4.1",
     "istanbul": "^0.4.0",
     "mocha": "^2.3.3",
