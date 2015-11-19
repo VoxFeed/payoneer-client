@@ -1,14 +1,64 @@
 {
-  "echo": "Echo",
-  "authUrl": "getToken",
-  "getVersion": "GetVersion",
-  "requestPayment": "PerformPayoutPayment",
-  "getUnclaimedPayments": "GetUnclaimedPaymentsXML",
-  "cancelPayment": "CancelPayment",
-  "getPaymentStatus": "GetPaymentStatus",
-  "getPayeePayments": "GetSinglePayeeReport",
-  "getPayeesReport": "GetPayeesReport",
-  "getPayee": "GetPayeeDetails",
-  "updatePayeeId": "ChangePayeeID",
-  "getBalance": "GetAccountDetails"
+  "echo": {
+    "name": "Echo"
+  },
+  "authUrl": {
+    "name": "getToken",
+    "requiredKeys": [
+      "payeeId"
+    ]
+  },
+  "getVersion": {
+    "name": "GetVersion"
+  },
+  "requestPayment": {
+    "name": "PerformPayoutPayment",
+    "requiredKeys": [
+      "programId",
+      "payeeId",
+      "amount",
+      "description",
+      "date"
+    ]
+  },
+  "getUnclaimedPayments": {
+    "name": "GetUnclaimedPaymentsXML"
+  },
+  "cancelPayment": {
+    "name": "CancelPayment",
+    "requiredKeys": [
+      "paymentId"
+    ]
+  },
+  "getPaymentStatus": {
+    "name": "GetPaymentStatus",
+    "requiredKeys": [
+      "paymentId"
+    ]
+  },
+  "getPayeePayments": {
+    "name": "GetSinglePayeeReport",
+    "requiredKeys": [
+      "payeeId"
+    ]
+  },
+  "getPayeesReport": {
+    "name": "GetPayeesReport"
+  },
+  "getPayee": {
+    "name": "GetPayeeDetails",
+    "requiredKeys": [
+      "payeeId"
+    ]
+  },
+  "updatePayeeId": {
+    "name": "ChangePayeeID",
+    "requiredKeys": [
+      "oldPayeeId",
+      "newPayeeId"
+    ]
+  },
+  "getBalance": {
+    "name": "GetAccountDetails"
+  }
 }

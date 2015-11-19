@@ -96,6 +96,7 @@ describe('Payoneer Module', function() {
         expect(error).to.not.exist;
         expect(data).to.have.property('version');
         expect(data).to.have.property('description').and.contains('Ok');
+
         done();
       });
     });
@@ -107,8 +108,15 @@ describe('Payoneer Module', function() {
             payeeId: payeeId
           };
 
+          nock(SANDBOX_URI)
+            .post(API_PATH)
+            .query(true)
+            .reply(200, responses.payments.request);
+
           payoneer.requestPayment(options, function(error, data) {
             expect(error).to.exist;
+            expect(error).to.be.instanceOf(InvalidInputError);
+
             done();
           });
         });
@@ -139,12 +147,15 @@ describe('Payoneer Module', function() {
       });
 
       it('GetPaymentStatus Function', function(done) {
+        var options = {
+          paymentId: paymentId
+        };
         nock(SANDBOX_URI)
           .post(API_PATH)
           .query(true)
           .reply(200, responses.payments.status);
 
-        payoneer.getPaymentStatus(paymentId, function(error, data) {
+        payoneer.getPaymentStatus(options, function(error, data) {
           expect(error).to.not.exist;
           expect(data).to.have.property('paymentId');
           expect(data).to.have.property('amount');
@@ -163,17 +174,21 @@ describe('Payoneer Module', function() {
         payoneer.getUnclaimedPayments(function(error, data) {
           expect(error).to.not.exist;
           expect(data).to.have.property('payment');
+
           done();
         });
       });
 
       it('CancelPayment Function', function(done) {
+        var options = {
+          paymentId: paymentId
+        };
         nock(SANDBOX_URI)
           .post(API_PATH)
           .query(true)
           .reply(200, responses.payments.cancel);
 
-        payoneer.cancelPayment(paymentId, function(error, data) {
+        payoneer.cancelPayment(options, function(error, data) {
           expect(error).to.not.exist;
           expect(data).to.have.property('paymentId');
           expect(data).to.have.property('curr');
@@ -186,12 +201,16 @@ describe('Payoneer Module', function() {
 
     describe('Payees Functions', function() {
       it('GetPayee Function', function(done) {
+        var options = {
+          payeeId: payeeId
+        };
+
         nock(SANDBOX_URI)
           .post(API_PATH)
           .query(true)
           .reply(200, responses.payees.getPayee);
 
-        payoneer.getPayee(payeeId, function(error, data) {
+        payoneer.getPayee(options, function(error, data) {
           expect(error).to.not.exist;
           expect(data).to.have.deep.property('payee.payeeStatus');
           expect(data).to.have.deep.property('payee.cards');
@@ -201,12 +220,16 @@ describe('Payoneer Module', function() {
       });
 
       it('GetPayeePayments Function', function(done) {
+        var options = {
+          payeeId: payeeId
+        };
+
         nock(SANDBOX_URI)
           .post(API_PATH)
           .query(true)
           .reply(200, responses.payees.getPayments);
 
-        payoneer.getPayeePayments(payeeId, function(error, data) {
+        payoneer.getPayeePayments(options, function(error, data) {
           expect(error).to.not.exist;
           expect(data).to.have.any.keys('prepaid', 'ach', 'iAch', 'paperCheck', 'payoneerAccount');
           expect(data).to.have.property('prepaid').that.is.an('array');
@@ -232,19 +255,24 @@ describe('Payoneer Module', function() {
         });
       });
 
-      it('updatePayeeId Function', function() {
-        var oldPayeeId = payeeId;
-        var newPayeeId = '666';
+      it('updatePayeeId Function', function(done) {
+        var options = {
+          oldPayeeId: payeeId,
+          newPayeeId: '666'
+        };
 
         nock(SANDBOX_URI)
           .post(API_PATH)
           .query(true)
           .reply(200, responses.payees.updatePayeeId);
 
-        payoneer.updatePayeeId(oldPayeeId, newPayeeId, function(error, data) {
+        payoneer.updatePayeeId(options, function(error, data) {
           expect(error).to.not.exist;
-          expect(data).to.have.property('oldPayee', oldPayeeId);
-          expect(data).to.have.property('newPayee', newPayeeId);
+          expect(data).to.be.an('object');
+          expect(data).to.have.property('oldPayee');
+          expect(data).to.have.property('newPayee');
+
+          done();
         });
       });
     });
