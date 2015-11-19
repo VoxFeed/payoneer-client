@@ -3,6 +3,7 @@ var request = require('supertest');
 var expect = require('chai').expect;
 var express = require('express');
 var parseNotification = require('../lib/notification');
+var notifications = require('../lib/notification/notifications');
 
 var NOTIFICATION = '/notification';
 
@@ -176,7 +177,7 @@ describe('Notification callback URL', function() {
           res.status(200);
         }
 
-        res.send({ type: type });
+        res.send(type);
       });
       server = app.listen(3000);
     });
@@ -186,7 +187,7 @@ describe('Notification callback URL', function() {
     it('Returns the parsed query', function(done) {
       request(server)
         .get(NOTIFICATION + '?APPROVED=true&a=b&c=d&yolo=swag')
-        .expect(200, done);
+        .expect(200, notifications.APPROVED, done);
     });
 
     it('Fails if request type is not in the list', function(done) {

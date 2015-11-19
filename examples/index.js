@@ -14,7 +14,7 @@ var notificationHandler = function(request, response) {
   var type = parseIPCN(request.query);
 
   if (!type) response.send(500, 'Not valid type');
-  response.send(200, { type: type });
+  response.send(200, type);
 };
 
 app.use(express.static('public'));
