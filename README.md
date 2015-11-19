@@ -1,4 +1,10 @@
+
 # Payoneer
+
+[![Dependency Status](https://img.shields.io/david/VoxFeed/payoneer-client.svg?style=flat-square)](https://david-dm.org/Voxfeed/payoneer-client)
+
+
+## Description
 
 This is a wrapper for the Payoneer API. Also converts all the default XML responses
 from Payoneer to Javascript objects, so you can handle the responses with ease.
@@ -8,7 +14,7 @@ from Payoneer to Javascript objects, so you can handle the responses with ease.
 `git clone https://github.com/VoxFeed/payoneer`
 `npm install`
 
-## Usage
+## Basic Usage
 
 ```javascript
 Payoneer = require('payoneer');

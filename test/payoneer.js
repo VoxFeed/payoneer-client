@@ -64,14 +64,17 @@ describe('Payoneer Module', function() {
     });
 
     it('GetAuthRedirectURL Function', function(done) {
+      var options = {
+        payeeId: payeeId
+      };
       nock(SANDBOX_URI)
         .post(API_PATH)
         .query(true)
         .reply(200, responses.getToken);
 
-      payoneer.getAuthRedirectURL(payeeId, function(error, data) {
+      payoneer.getAuthRedirectURL(options, function(error, data) {
         expect(error).to.not.exist;
-        expect(data).to.be.a('string');
+        expect(data).to.have.property('token');
         done();
       });
     });
