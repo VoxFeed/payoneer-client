@@ -1,0 +1,14 @@
+{
+  "echo": "Echo",
+  "authUrl": "getToken",
+  "getVersion": "GetVersion",
+  "requestPayment": "PerformPayoutPayment",
+  "getUnclaimedPayments": "GetUnclaimedPaymentsXML",
+  "cancelPayment": "CancelPayment",
+  "getPaymentStatus": "GetPaymentStatus",
+  "getPayeePayments": "GetSinglePayeeReport",
+  "getPayeesReport": "GetPayeesReport",
+  "getPayee": "GetPayeeDetails",
+  "updatePayeeId": "ChangePayeeID",
+  "getBalance": "GetAccountDetails"
+}
