@@ -1,4 +1,5 @@
 {
+  "error": "<?xml version='1.0' encoding='ISO-8859-1' ?><PayoneerResponse><Code>A00B556F</Code><Description>Unauthorized Access or invalid parameters, please check your IP address and parameters.</Description></PayoneerResponse>",
   "getToken": "<?xml version='1.0' encoding='UTF-8' ?> <PayoneerToken> <Token>https://payouts.sandbox.payoneer.com/partners/lp.aspx?token=171B5B82-295B-490C-A17F-60937A69989E</Token> </PayoneerToken>",
   "echo": "<?xml version='1.0' encoding='ISO-8859-1' ?><PayoneerResponse><Status>000</Status><Description>Echo Ok - All systems are up.</Description></PayoneerResponse>",
   "balance": "<?xml version='1.0' encoding='ISO-8859-1' ?><GetAccountDetails> <FeesDue>0.00</FeesDue> <AccountBalance>450.00</AccountBalance> <Curr>USD</Curr> </GetAccountDetails>",

@@ -3,7 +3,8 @@ var expect = require('chai').expect;
 var nock = require('nock');
 
 var Payoneer = require('../lib/payoneer');
-var InvalidInputError = require('../lib/errors').InvalidInputError;
+var InvalidInputError = require('../lib/errors/invalid-input-error');
+var PayoneerError = require('../lib/errors/payoneer-error');
 var config = require('./config.json');
 var responses = require('./fixtures/responses.json');
 
@@ -47,6 +48,21 @@ describe('Payoneer Module', function() {
     var payoneer;
     beforeEach(function() {
       payoneer = new Payoneer(config);
+    });
+
+    it('Returns error if Payoneer returns error', function(done) {
+      nock(SANDBOX_URI)
+        .post(API_PATH)
+        .query(true)
+        .reply(200, responses.error);
+
+      payoneer.getAPIStatus(function(error, data) {
+        expect(data).to.not.exist;
+        expect(error).to.exist;
+        expect(error).to.be.an.instanceOf(PayoneerError);
+
+        done();
+      });
     });
 
     it('GetBalance Function', function(done) {
