@@ -6,6 +6,9 @@ var Payoneer = require('../lib/payoneer');
 var config = require('./config.json');
 var responses = require('./fixtures/responses.json');
 
+var payeeId = 1;
+var paymentId = 1;
+
 describe('Payoneer Module', function() {
   describe('Configuration', function() {
     it('throws when no config is set', function() {
@@ -30,8 +33,7 @@ describe('Payoneer Module', function() {
         new Payoneer({
           username: '',
           password: '',
-          partnerID: '',
-          programID: ''
+          partnerId: ''
         });
         /* eslint-enable */
       }).to.throw(Error);
@@ -66,7 +68,7 @@ describe('Payoneer Module', function() {
         .query(true)
         .reply(200, responses.getToken);
 
-      payoneer.getAuthRedirectURL('42', function(error, data) {
+      payoneer.getAuthRedirectURL(payeeId, function(error, data) {
         expect(error).to.not.exist;
         expect(data).to.be.a('string');
         done();
@@ -95,9 +97,10 @@ describe('Payoneer Module', function() {
     describe('Payment Functions', function() {
       it('RequestPayment Function', function(done) {
         var options = {
-          paymentID: '42',
-          payeeID: '1',
+          paymentId: '42',
+          payeeId: '1',
           amount: '42',
+          programId: '123456',
           description: 'Super payment',
           date: (new Date()).toISOString()
         };
@@ -122,7 +125,7 @@ describe('Payoneer Module', function() {
           .query(true)
           .reply(200, responses.payments.status);
 
-        payoneer.getPaymentStatus('42', function(error, data) {
+        payoneer.getPaymentStatus(paymentId, function(error, data) {
           expect(error).to.not.exist;
           expect(data).to.have.property('paymentId');
           expect(data).to.have.property('amount');
@@ -151,7 +154,7 @@ describe('Payoneer Module', function() {
           .query(true)
           .reply(200, responses.payments.cancel);
 
-        payoneer.cancelPayment('42', function(error, data) {
+        payoneer.cancelPayment(paymentId, function(error, data) {
           expect(error).to.not.exist;
           expect(data).to.have.property('paymentId');
           expect(data).to.have.property('curr');
@@ -169,7 +172,7 @@ describe('Payoneer Module', function() {
           .query(true)
           .reply(200, responses.payees.getPayee);
 
-        payoneer.getPayee('1', function(error, data) {
+        payoneer.getPayee(payeeId, function(error, data) {
           expect(error).to.not.exist;
           expect(data).to.have.deep.property('payee.payeeStatus');
           expect(data).to.have.deep.property('payee.cards');
@@ -184,9 +187,9 @@ describe('Payoneer Module', function() {
           .query(true)
           .reply(200, responses.payees.getPayments);
 
-        payoneer.getPayeePayments('1', function(error, data) {
+        payoneer.getPayeePayments(payeeId, function(error, data) {
           expect(error).to.not.exist;
-          expect(data).to.have.any.keys('prepaid', 'Ach', 'iAch', 'paperCheck', 'payoneerAccount');
+          expect(data).to.have.any.keys('prepaid', 'ach', 'iAch', 'paperCheck', 'payoneerAccount');
           expect(data).to.have.property('prepaid').that.is.an('array');
           expect(data).to.have.deep.property('prepaid.0.payments').that.is.an('array');
 
@@ -202,7 +205,7 @@ describe('Payoneer Module', function() {
 
         payoneer.getPayeesReport(function(error, data) {
           expect(error).to.not.exist;
-          expect(data).to.have.any.keys('prepaid', 'Ach', 'iAch', 'paperCheck', 'payoneerAccount');
+          expect(data).to.have.any.keys('prepaid', 'ach', 'iAch', 'paperCheck', 'payoneerAccount');
           expect(data).to.have.property('prepaid').that.is.an('array');
           expect(data).to.have.deep.property('prepaid.0.payments').that.is.an('array');
 
@@ -210,19 +213,19 @@ describe('Payoneer Module', function() {
         });
       });
 
-      it('updatePayeeID Function', function() {
-        var oldPayeeID = '42';
-        var newPayeeID = '666';
+      it('updatePayeeId Function', function() {
+        var oldPayeeId = payeeId;
+        var newPayeeId = '666';
 
         nock('https://api.sandbox.payoneer.com:443')
           .post('/Payouts/HttpApi/API.aspx')
           .query(true)
-          .reply(200, responses.payees.updatePayeeID);
+          .reply(200, responses.payees.updatePayeeId);
 
-        payoneer.updatePayeeID(oldPayeeID, newPayeeID, function(error, data) {
+        payoneer.updatePayeeId(oldPayeeId, newPayeeId, function(error, data) {
           expect(error).to.not.exist;
-          expect(data).to.have.property('oldPayee', oldPayeeID);
-          expect(data).to.have.property('newPayee', newPayeeID);
+          expect(data).to.have.property('oldPayee', oldPayeeId);
+          expect(data).to.have.property('newPayee', newPayeeId);
         });
       });
     });
