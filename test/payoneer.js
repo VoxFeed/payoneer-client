@@ -3,6 +3,7 @@ var expect = require('chai').expect;
 var nock = require('nock');
 
 var Payoneer = require('../lib/payoneer');
+var InvalidInputError = require('../lib/errors').InvalidInputError;
 var config = require('./config.json');
 var responses = require('./fixtures/responses.json');
 
@@ -10,6 +11,7 @@ var payeeId = 1;
 var paymentId = 1;
 var SANDBOX_URI = 'https://api.sandbox.payoneer.com';
 var API_PATH = '/Payouts/HttpApi/API.aspx';
+
 describe('Payoneer Module', function() {
   describe('Configuration', function() {
     it('throws when no config is set', function() {
@@ -17,7 +19,7 @@ describe('Payoneer Module', function() {
         /* eslint-disable */
         new Payoneer();
         /* eslint-enable */
-      }).to.throw(Error);
+      }).to.throw(InvalidInputError);
     });
 
     it('throws when a key is missing', function() {
@@ -25,7 +27,7 @@ describe('Payoneer Module', function() {
         /* eslint-disable */
         new Payoneer({ username: 'yolo' });
         /* eslint-enable */
-      }).to.throw(Error);
+      }).to.throw(InvalidInputError);
     });
 
     it('throws if config keys are provided but empty', function() {
@@ -37,7 +39,7 @@ describe('Payoneer Module', function() {
           partnerId: ''
         });
         /* eslint-enable */
-      }).to.throw(Error);
+      }).to.throw(InvalidInputError);
     });
   });
 
@@ -99,27 +101,40 @@ describe('Payoneer Module', function() {
     });
 
     describe('Payment Functions', function() {
-      it('RequestPayment Function', function(done) {
-        var options = {
-          paymentId: '42',
-          payeeId: '1',
-          amount: '42',
-          programId: '123456',
-          description: 'Super payment',
-          date: (new Date()).toISOString()
-        };
+      describe('RequestPayment Function', function() {
+        it('returs error invalid params', function(done) {
+          var options = {
+            payeeId: payeeId
+          };
 
-        nock(SANDBOX_URI)
-          .post(API_PATH)
-          .query(true)
-          .reply(200, responses.payments.request);
+          payoneer.requestPayment(options, function(error, data) {
+            expect(error).to.exist;
+            done();
+          });
+        });
 
-        payoneer.requestPayment(options, function(error, data) {
-          expect(error).to.not.exist;
-          expect(data).to.have.property('paymentId');
-          expect(data).to.have.property('payoneerId');
+        it('returns the payment', function(done) {
+          var options = {
+            paymentId: '42',
+            payeeId: '1',
+            amount: '42',
+            programId: '123456',
+            description: 'Super payment',
+            date: (new Date()).toISOString()
+          };
 
-          done();
+          nock(SANDBOX_URI)
+            .post(API_PATH)
+            .query(true)
+            .reply(200, responses.payments.request);
+
+          payoneer.requestPayment(options, function(error, data) {
+            expect(error).to.not.exist;
+            expect(data).to.have.property('paymentId');
+            expect(data).to.have.property('payoneerId');
+
+            done();
+          });
         });
       });
 
