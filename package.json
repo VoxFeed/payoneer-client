@@ -1,10 +1,19 @@
 {
-  "name": "payoneer",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "payoneer-client",
+  "version": "0.0.1",
+  "description": "A Payoneer Client that actually works. Default SDK gave cancer",
+  "keyword": [
+    "payoneer",
+    "payments",
+    "client"
+  ],
+  "main": "./lib/payoneer.js",
   "directories": {
     "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VoxFeed/payoneer-client"
   },
   "dependencies": {
     "body-parser": "^1.14.1",
@@ -15,13 +24,18 @@
   },
   "devDependencies": {
     "chai": "^3.4.1",
+    "istanbul": "^0.4.0",
     "mocha": "^2.3.3",
     "nock": "^2.17.0",
     "supertest": "^1.1.0"
   },
   "scripts": {
-    "test": "mocha -u bdd --recursive test/"
+    "test": "mocha -u bdd --recursive test/",
+    "coverage": "istanbul cover _mocha -- --recursive test/*.js"
   },
-  "author": "Huicho",
+  "author": {
+    "name": "Luis Argumedo",
+    "email": "huicho.argumedo@gmail.com"
+  },
   "license": "MIT"
 }
