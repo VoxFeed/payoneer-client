@@ -14,6 +14,10 @@ var SANDBOX_URI = 'https://api.sandbox.payoneer.com';
 var API_PATH = '/Payouts/HttpApi/API.aspx';
 
 describe('Payoneer Module', function() {
+  afterEach(function() {
+    nock.cleanAll();
+  });
+
   describe('Configuration', function() {
     it('throws when no config is set', function() {
       expect(function() {
@@ -81,19 +85,93 @@ describe('Payoneer Module', function() {
       });
     });
 
-    it('GetAuthRedirectURL Function', function(done) {
-      var options = {
-        payeeId: payeeId
-      };
-      nock(SANDBOX_URI)
-        .post(API_PATH)
-        .query(true)
-        .reply(200, responses.getToken);
+    describe('GetAuthRedirectURL', function(done) {
+      it('should return a token', function(done) {
+        var options = {
+          payeeId: payeeId
+        };
+        nock(SANDBOX_URI)
+          .post(API_PATH)
+          .query(true)
+          .reply(200, responses.getToken.success);
 
-      payoneer.getAuthRedirectURL(options, function(error, data) {
-        expect(error).to.not.exist;
-        expect(data).to.have.property('token');
-        done();
+        payoneer.getAuthRedirectURL(options, function(error, redirectUrl) {
+          var url = 'payoneer.com/partners/lp.aspx';
+          expect(error).to.not.exist;
+          expect(redirectUrl).to.exist;
+          expect(typeof redirectUrl).to.be.equal('string');
+          expect(redirectUrl).to.have.string(url);
+          expect(redirectUrl).to.have.string('token');
+          done();
+        });
+      });
+
+      it('should handle server error 001', function(done) {
+        var options = {
+          payeeId: payeeId
+        };
+        nock(SANDBOX_URI)
+          .post(API_PATH)
+          .query(true)
+          .reply(200, responses.getToken.Err001);
+
+        payoneer.getAuthRedirectURL(options, function(error, redirectUrl) {
+          expect(redirectUrl).not.to.exist;
+          expect(error).to.exist;
+          expect(error.name).to.equal('BAD_REQUEST');
+          done();
+        });
+      });
+
+      it('should handle server error 005', function(done) {
+        var options = {
+          payeeId: payeeId
+        };
+        nock(SANDBOX_URI)
+          .post(API_PATH)
+          .query(true)
+          .reply(200, responses.getToken.Err005);
+
+        payoneer.getAuthRedirectURL(options, function(error, redirectUrl) {
+          expect(redirectUrl).not.to.exist;
+          expect(error).to.exist;
+          expect(error.name).to.equal('PAYONEER_API_ERROR');
+          done();
+        });
+      });
+
+      it('should handle server error 006', function(done) {
+        var options = {
+          payeeId: payeeId
+        };
+        nock(SANDBOX_URI)
+          .post(API_PATH)
+          .query(true)
+          .reply(200, responses.getToken.Err006);
+
+        payoneer.getAuthRedirectURL(options, function(error, redirectUrl) {
+          expect(redirectUrl).not.to.exist;
+          expect(error).to.exist;
+          expect(error.name).to.equal('PAYONEER_API_ERROR');
+          done();
+        });
+      });
+
+      it('should handle server error 008', function(done) {
+        var options = {
+          payeeId: payeeId
+        };
+        nock(SANDBOX_URI)
+          .post(API_PATH)
+          .query(true)
+          .reply(200, responses.getToken.Err008);
+
+        payoneer.getAuthRedirectURL(options, function(error, redirectUrl) {
+          expect(redirectUrl).not.to.exist;
+          expect(error).to.exist;
+          expect(error.name).to.equal('PAYONEER_API_ERROR');
+          done();
+        });
       });
     });
 

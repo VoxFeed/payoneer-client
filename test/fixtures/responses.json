@@ -1,6 +1,16 @@
 {
   "error": "<?xml version='1.0' encoding='ISO-8859-1' ?><PayoneerResponse><Code>A00B556F</Code><Description>Unauthorized Access or invalid parameters, please check your IP address and parameters.</Description></PayoneerResponse>",
-  "getToken": "<?xml version='1.0' encoding='UTF-8' ?> <PayoneerToken> <Token>https://payouts.sandbox.payoneer.com/partners/lp.aspx?token=171B5B82-295B-490C-A17F-60937A69989E</Token> </PayoneerToken>",
+  "getToken": {
+    "Err001": "<PayoneerResponse><Code>001</Code><Description>Field format is invalid or is not supported.</Description></PayoneerResponse>",
+    "Err005": "<PayoneerResponse><Code>005</Code><Description>Internal error.</Description></PayoneerResponse>",
+    "Err006": "<PayoneerResponse><Code>006</Code><Description>Internal error.</Description></PayoneerResponse>",
+    "Err008": "<PayoneerResponse><Code>008</Code><Description>Internal error.</Description></PayoneerResponse>",
+    "ErrPE1010": "<PayoneerResponse><Code>PE1010</Code><Description>Unauthorized action.</Description></PayoneerResponse>",
+    "Err000FFF0": "<PayoneerResponse><Code>000FFF0</Code><Description>API function not allowed by partner.</Description></PayoneerResponse>",
+    "ErrA00B556F": "<PayoneerResponse><Code>A00B556F</Code><Description>Unauthorized access or invalid parameters. Please check IP address and parameters.</Description></PayoneerResponse>",
+    "Err4B501FF5": "<PayoneerResponse><Code>4B501FF5</Code><Description>Cannot find command or wrong method name.</Description></PayoneerResponse>",
+    "success": "<?xml version='1.0' encoding='UTF-8' ?> <PayoneerToken> <Token>https://payouts.sandbox.payoneer.com/partners/lp.aspx?token=171B5B82-295B-490C-A17F-60937A69989E</Token> </PayoneerToken>"
+  },
   "echo": "<?xml version='1.0' encoding='ISO-8859-1' ?><PayoneerResponse><Status>000</Status><Description>Echo Ok - All systems are up.</Description></PayoneerResponse>",
   "balance": "<?xml version='1.0' encoding='ISO-8859-1' ?><GetAccountDetails> <FeesDue>0.00</FeesDue> <AccountBalance>450.00</AccountBalance> <Curr>USD</Curr> </GetAccountDetails>",
   "getVersion": "<?xml version='1.0' encoding='ISO-8859-1' ?><PayoneerResponse><Version>4.0.0.0</Version></PayoneerResponse>",

@@ -3,7 +3,7 @@
     "name": "Echo"
   },
   "authUrl": {
-    "name": "getToken",
+    "name": "GetToken",
     "requiredKeys": [
       "payeeId"
     ]
