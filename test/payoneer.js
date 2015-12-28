@@ -197,7 +197,7 @@ describe('Payoneer Module', function() {
 
     describe('Payment Functions', function() {
       describe('RequestPayment Function', function() {
-        it('returs error invalid params', function(done) {
+        it('returs error if invalid params', function(done) {
           var options = {
             payeeId: payeeId
           };
@@ -222,7 +222,7 @@ describe('Payoneer Module', function() {
             amount: '42',
             programId: '123456',
             description: 'Super payment',
-            date: (new Date()).toISOString()
+            date: new Date()
           };
 
           nock(SANDBOX_URI)

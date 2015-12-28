@@ -56,4 +56,13 @@ describe('Util functions', function() {
         .and.contain(testObject);
     });
   });
+
+  describe('formatDate function', function() {
+    it('returns MM/DD/YYYY HH:MM:SS', function() {
+      var date = new Date('2015-10-20 20:30:40');
+      var formattedDate = util.formatDate(date);
+
+      expect(formattedDate).to.equals('10/20/2015 20:30:40');
+    });
+  });
 });
