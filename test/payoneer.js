@@ -215,6 +215,512 @@ describe('Payoneer Module', function() {
           });
         });
 
+        it('handles error 001', function(done) {
+          var options = {
+            paymentId: '42',
+            payeeId: '1',
+            amount: '42',
+            programId: '123456',
+            description: 'Super payment',
+            date: new Date()
+          };
+
+          nock(SANDBOX_URI)
+            .post(API_PATH)
+            .query(true)
+            .reply(200, responses.payments.Err001);
+
+          payoneer.requestPayment(options, function(error, data) {
+            expect(error).to.exist;
+            expect(error.name).to.equal('BAD_REQUEST');
+
+            done();
+          });
+        });
+
+        it('handles error 002', function(done) {
+          var options = {
+            paymentId: '42',
+            payeeId: '1',
+            amount: '42',
+            programId: '123456',
+            description: 'Super payment',
+            date: new Date()
+          };
+
+          nock(SANDBOX_URI)
+            .post(API_PATH)
+            .query(true)
+            .reply(200, responses.payments.Err002);
+
+          payoneer.requestPayment(options, function(error, data) {
+            expect(error).to.exist;
+            expect(error.name).to.equal('PayoneerError');
+
+            done();
+          });
+        });
+
+        it('handles error 003', function(done) {
+          var options = {
+            paymentId: '42',
+            payeeId: '1',
+            amount: '42',
+            programId: '123456',
+            description: 'Super payment',
+            date: new Date()
+          };
+
+          nock(SANDBOX_URI)
+            .post(API_PATH)
+            .query(true)
+            .reply(200, responses.payments.Err003);
+
+          payoneer.requestPayment(options, function(error, data) {
+            expect(error).to.exist;
+            expect(error.name).to.equal('PayoneerError');
+
+            done();
+          });
+        });
+
+        it('handles error 004', function(done) {
+          var options = {
+            paymentId: '42',
+            payeeId: '1',
+            amount: '42',
+            programId: '123456',
+            description: 'Super payment',
+            date: new Date()
+          };
+
+          nock(SANDBOX_URI)
+            .post(API_PATH)
+            .query(true)
+            .reply(200, responses.payments.Err004);
+
+          payoneer.requestPayment(options, function(error, data) {
+            expect(error).to.exist;
+            expect(error.name).to.equal('PayoneerError');
+
+            done();
+          });
+        });
+
+        it('handles error 006', function(done) {
+          var options = {
+            paymentId: '42',
+            payeeId: '1',
+            amount: '42',
+            programId: '123456',
+            description: 'Super payment',
+            date: new Date()
+          };
+
+          nock(SANDBOX_URI)
+            .post(API_PATH)
+            .query(true)
+            .reply(200, responses.payments.Err006);
+
+          payoneer.requestPayment(options, function(error, data) {
+            expect(error).to.exist;
+            expect(error.name).to.equal('PAYONEER_API_ERROR');
+
+            done();
+          });
+        });
+
+        it('handles error 008', function(done) {
+          var options = {
+            paymentId: '42',
+            payeeId: '1',
+            amount: '42',
+            programId: '123456',
+            description: 'Super payment',
+            date: new Date()
+          };
+
+          nock(SANDBOX_URI)
+            .post(API_PATH)
+            .query(true)
+            .reply(200, responses.payments.Err008);
+
+          payoneer.requestPayment(options, function(error, data) {
+            expect(error).to.exist;
+            expect(error.name).to.equal('PAYONEER_API_ERROR');
+
+            done();
+          });
+        });
+
+        it('handles error 011', function(done) {
+          var options = {
+            paymentId: '42',
+            payeeId: '1',
+            amount: '42',
+            programId: '123456',
+            description: 'Super payment',
+            date: new Date()
+          };
+
+          nock(SANDBOX_URI)
+            .post(API_PATH)
+            .query(true)
+            .reply(200, responses.payments.Err011);
+
+          payoneer.requestPayment(options, function(error, data) {
+            expect(error).to.exist;
+            expect(error.name).to.equal('PayoneerError');
+
+            done();
+          });
+        });
+
+        it('handles error 010', function(done) {
+          var options = {
+            paymentId: '42',
+            payeeId: '1',
+            amount: '42',
+            programId: '123456',
+            description: 'Super payment',
+            date: new Date()
+          };
+
+          nock(SANDBOX_URI)
+            .post(API_PATH)
+            .query(true)
+            .reply(200, responses.payments.Err010);
+
+          payoneer.requestPayment(options, function(error, data) {
+            expect(error).to.exist;
+            expect(error.name).to.equal('PayoneerError');
+
+            done();
+          });
+        });
+
+        it('handles error 030', function(done) {
+          var options = {
+            paymentId: '42',
+            payeeId: '1',
+            amount: '42',
+            programId: '123456',
+            description: 'Super payment',
+            date: new Date()
+          };
+
+          nock(SANDBOX_URI)
+            .post(API_PATH)
+            .query(true)
+            .reply(200, responses.payments.Err030);
+
+          payoneer.requestPayment(options, function(error, data) {
+            expect(error).to.exist;
+            expect(error.name).to.equal('PayoneerError');
+
+            done();
+          });
+        });
+
+        it('handles error 099', function(done) {
+          var options = {
+            paymentId: '42',
+            payeeId: '1',
+            amount: '42',
+            programId: '123456',
+            description: 'Super payment',
+            date: new Date()
+          };
+
+          nock(SANDBOX_URI)
+            .post(API_PATH)
+            .query(true)
+            .reply(200, responses.payments.Err099);
+
+          payoneer.requestPayment(options, function(error, data) {
+            expect(error).to.exist;
+            expect(error.name).to.equal('PayoneerError');
+
+            done();
+          });
+        });
+
+        it('handles error 00001m', function(done) {
+          var options = {
+            paymentId: '42',
+            payeeId: '1',
+            amount: '42',
+            programId: '123456',
+            description: 'Super payment',
+            date: new Date()
+          };
+
+          nock(SANDBOX_URI)
+            .post(API_PATH)
+            .query(true)
+            .reply(200, responses.payments.Err0001m);
+
+          payoneer.requestPayment(options, function(error, data) {
+            expect(error).to.exist;
+            expect(error.name).to.equal('PayoneerError');
+
+            done();
+          });
+        });
+
+        it('handles error 002b', function(done) {
+          var options = {
+            paymentId: '42',
+            payeeId: '1',
+            amount: '42',
+            programId: '123456',
+            description: 'Super payment',
+            date: new Date()
+          };
+
+          nock(SANDBOX_URI)
+            .post(API_PATH)
+            .query(true)
+            .reply(200, responses.payments.Err002b);
+
+          payoneer.requestPayment(options, function(error, data) {
+            expect(error).to.exist;
+            expect(error.name).to.equal('PayoneerError');
+
+            done();
+          });
+        });
+
+        it('handles error 002t', function(done) {
+          var options = {
+            paymentId: '42',
+            payeeId: '1',
+            amount: '42',
+            programId: '123456',
+            description: 'Super payment',
+            date: new Date()
+          };
+
+          nock(SANDBOX_URI)
+            .post(API_PATH)
+            .query(true)
+            .reply(200, responses.payments.Err002t);
+
+          payoneer.requestPayment(options, function(error, data) {
+            expect(error).to.exist;
+            expect(error.name).to.equal('PayoneerError');
+
+            done();
+          });
+        });
+
+        it('handles error 002em', function(done) {
+          var options = {
+            paymentId: '42',
+            payeeId: '1',
+            amount: '42',
+            programId: '123456',
+            description: 'Super payment',
+            date: new Date()
+          };
+
+          nock(SANDBOX_URI)
+            .post(API_PATH)
+            .query(true)
+            .reply(200, responses.payments.Err002em);
+
+          payoneer.requestPayment(options, function(error, data) {
+            expect(error).to.exist;
+            expect(error.name).to.equal('PayoneerError');
+
+            done();
+          });
+        });
+
+        it('handles error 006n', function(done) {
+          var options = {
+            paymentId: '42',
+            payeeId: '1',
+            amount: '42',
+            programId: '123456',
+            description: 'Super payment',
+            date: new Date()
+          };
+
+          nock(SANDBOX_URI)
+            .post(API_PATH)
+            .query(true)
+            .reply(200, responses.payments.Err006n);
+
+          payoneer.requestPayment(options, function(error, data) {
+            expect(error).to.exist;
+            expect(error.name).to.equal('PayoneerError');
+
+            done();
+          });
+        });
+
+        it('handles error 007d', function(done) {
+          var options = {
+            paymentId: '42',
+            payeeId: '1',
+            amount: '42',
+            programId: '123456',
+            description: 'Super payment',
+            date: new Date()
+          };
+
+          nock(SANDBOX_URI)
+            .post(API_PATH)
+            .query(true)
+            .reply(200, responses.payments.Err007d);
+
+          payoneer.requestPayment(options, function(error, data) {
+            expect(error).to.exist;
+            expect(error.name).to.equal('PayoneerError');
+
+            done();
+          });
+        });
+
+        it('handles error 007f', function(done) {
+          var options = {
+            paymentId: '42',
+            payeeId: '1',
+            amount: '42',
+            programId: '123456',
+            description: 'Super payment',
+            date: new Date()
+          };
+
+          nock(SANDBOX_URI)
+            .post(API_PATH)
+            .query(true)
+            .reply(200, responses.payments.Err007f);
+
+          payoneer.requestPayment(options, function(error, data) {
+            expect(error).to.exist;
+            expect(error.name).to.equal('PayoneerError');
+
+            done();
+          });
+        });
+
+        it('handles error 007g', function(done) {
+          var options = {
+            paymentId: '42',
+            payeeId: '1',
+            amount: '42',
+            programId: '123456',
+            description: 'Super payment',
+            date: new Date()
+          };
+
+          nock(SANDBOX_URI)
+            .post(API_PATH)
+            .query(true)
+            .reply(200, responses.payments.Err007g);
+
+          payoneer.requestPayment(options, function(error, data) {
+            expect(error).to.exist;
+            expect(error.name).to.equal('PayoneerError');
+
+            done();
+          });
+        });
+
+        it('handles error 00PE1028', function(done) {
+          var options = {
+            paymentId: '42',
+            payeeId: '1',
+            amount: '42',
+            programId: '123456',
+            description: 'Super payment',
+            date: new Date()
+          };
+
+          nock(SANDBOX_URI)
+            .post(API_PATH)
+            .query(true)
+            .reply(200, responses.payments.ErrPE1028);
+
+          payoneer.requestPayment(options, function(error, data) {
+            expect(error).to.exist;
+            expect(error.name).to.equal('PayoneerError');
+
+            done();
+          });
+        });
+
+        it('handles error 000FFF0', function(done) {
+          var options = {
+            paymentId: '42',
+            payeeId: '1',
+            amount: '42',
+            programId: '123456',
+            description: 'Super payment',
+            date: new Date()
+          };
+
+          nock(SANDBOX_URI)
+            .post(API_PATH)
+            .query(true)
+            .reply(200, responses.payments.Err000FFF0);
+
+          payoneer.requestPayment(options, function(error, data) {
+            expect(error).to.exist;
+            expect(error.name).to.equal('PayoneerError');
+
+            done();
+          });
+        });
+
+        it('handles error A00B556F', function(done) {
+          var options = {
+            paymentId: '42',
+            payeeId: '1',
+            amount: '42',
+            programId: '123456',
+            description: 'Super payment',
+            date: new Date()
+          };
+
+          nock(SANDBOX_URI)
+            .post(API_PATH)
+            .query(true)
+            .reply(200, responses.payments.ErrA00B556F);
+
+          payoneer.requestPayment(options, function(error, data) {
+            expect(error).to.exist;
+            expect(error.name).to.equal('PayoneerError');
+
+            done();
+          });
+        });
+
+        it('handles error 4B501FF5', function(done) {
+          var options = {
+            paymentId: '42',
+            payeeId: '1',
+            amount: '42',
+            programId: '123456',
+            description: 'Super payment',
+            date: new Date()
+          };
+
+          nock(SANDBOX_URI)
+            .post(API_PATH)
+            .query(true)
+            .reply(200, responses.payments.Err4B501FF5);
+
+          payoneer.requestPayment(options, function(error, data) {
+            expect(error).to.exist;
+            expect(error.name).to.equal('PayoneerError');
+
+            done();
+          });
+        });
+
         it('returns the payment', function(done) {
           var options = {
             paymentId: '42',
